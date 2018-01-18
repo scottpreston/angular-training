@@ -1,0 +1,19 @@
+{
+  "name": "angular-starter-typescript",
+  "version": "1.0.0",
+  "description": "1. ES5, ES6, and TypeScript 2. Syntax Sugar (ES6 & TS)  3. Static Types 4. Interfaces, Classes, Enums, Modules, Namespaces 5. tsconfig.json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "dependencies": {
+    "ts-node": "^3.3.0",
+    "typescript": "^2.5.2"
+  }
+}
