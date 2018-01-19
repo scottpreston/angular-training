@@ -1,0 +1,11 @@
+<div>hello {{name}}</div>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    <tr *ngFor="let user of users">
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+    </tr>
+</table>
