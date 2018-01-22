@@ -47,13 +47,57 @@ Template Statements raise events.
 <button (click)="vote(true)"  [disabled]="voted">Agree</button>
 ```
 
-* Two-Way <-> `[(target)]="property"`
+## Two-Way Binding
 
-## Binding Targets ##
+Two way binding in a nutshell:
 
-* Properties - see `app.component.ts` example
-* Events - `<button (click)="onSave()">Save</button>`
-* Two-way - see `app.component.ts` example
-* Attribute - `<td colspan="{{1 + 1}}">`
-* Class - special kind of attribute binding `[class.special]="isSpecial"`
-* Style `<button [style.color]="isSpecial ? 'red': 'green'">Red</button>`
+```typescript
+<input [(ngModel)]="foo">
+
+<p>Hello {{foo}}!</p>
+
+// or
+<input [value]="foo" (input)="foo = $event.target.value">
+
+<p>Hello {{foo}}!</p>
+
+```
+
+The syntax ` [(ngModel)]="foo"`  binds to the interpolation in the template `{{foo}}`
+
+## Note On Custom Directives ##
+
+`ngForOf` or `ngFor`
+
+A repeater directive.
+
+```typescript
+<div *ngFor="let hero of heroes">{{hero.name}}</div>
+```
+
+`ngIf`
+
+Conditional Attribute Directive
+
+```typescript
+<div *ngIf="show">Text to show</div>
+```
+
+## Exercise ##
+
+1. Create a component manually or with the CLI.
+2. Create a Parent-Child Component where the data from one component is read/consumed in the other.
+3. Create one and two way bindings so form data can display in a table below using `ngFor`.
+4. Color the rows based on some data in the form.
+
+Example JSON of a hero.
+
+```
+const hero = {
+    name: "Tony Stark",
+    alias: "Iron Man",
+    favoriteColor: "FF3C00" // hotrod red
+}
+```
+
+Create an app to add, edit, delete and display this information in a table.
