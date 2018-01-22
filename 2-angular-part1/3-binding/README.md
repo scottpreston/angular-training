@@ -39,9 +39,7 @@ export class AppComponent {
 }
 ```
 
-Template Statements `(click)="deleteHero()"`
-
-Template Statements raise events.
+Template Statements like `(click)="deleteHero()"` raise events.
 
 ```typescript
 <button (click)="vote(true)"  [disabled]="voted">Agree</button>
