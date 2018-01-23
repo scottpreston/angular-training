@@ -1,5 +1,16 @@
 # Angular Testing #
 
+Testing Angular is comprised of 2 parts:
+
+* Unit Testing - Testing your code at a component level.
+* End 2 End (e2e) - Testing your code end-to-end.
+
+These test are run in actual browsers. Unit testing is run inside a browser via 
+`Karma`. [https://karma-runner.github.io/2.0/index.html](https://karma-runner.github.io/2.0/index.html)
+
+Karma is a test runner that launchs and runs your test inside separate browser windows provided 
+they are installed on your computer.
+
 To do a quick start with testing we will create a new project:
 
 ## Unit Test Quick Start ##
@@ -8,6 +19,7 @@ To do a quick start with testing we will create a new project:
 ng new testExample
 cd testExample
 ng test
+ng test --code-coverage
 ```
 Generated Unit Test
 
