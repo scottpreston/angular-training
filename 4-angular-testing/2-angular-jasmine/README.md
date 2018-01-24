@@ -30,3 +30,5 @@ expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
 3. To force detection of changes we call `fixture.detectChanges();`
 4. Compile the changes
 5. Expect the result via a selector.
+
+## Servics, Modules, HTTP ##
