@@ -118,3 +118,11 @@ myEmitter.emit('event', {some:"data"});
 ```
 
 The `myEmitter` has an `on` method. This on takes a string and a callback as parameters.
+
+## Exercise ##
+
+1. Create a blank project.
+2. Do NPM init and add Express
+3. Create a REST service for `/hello`.
+4. Add a `public` directory with a static HTML file in it to say `hello world`.
+5. Create an express route `/ping` and have it respond `pong`.

@@ -24,4 +24,8 @@ ES6 is now fully supported by the latest version of Node so there should not be 
 * 17-promises.js - promises with ES6
 * 18-modules.js - modules are and are not apart of ES6
 
-   
+Exercise:
+
+1. Create a class called `PingPong`
+2. Have this class call a method `ping` on an interval, then have it increment a local variable by 1. Use an arrow function, to invoke this and print it's value to the console.
+3. Import `PingPong` into another file called `app.js`.
