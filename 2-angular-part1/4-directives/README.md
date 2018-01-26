@@ -13,11 +13,8 @@ import { Directive } from '@angular/core';
   selector: '[appMyNewDirective]'
 })
 export class MyNewDirectiveDirective {
-
   constructor() { }
-
 }
-
 ```
 
 Lets modify this a little bit by modifying the constructor.
@@ -28,7 +25,20 @@ Lets modify this a little bit by modifying the constructor.
     }
 ```
 
+Then update the `app.module.ts`.
+
+
 Now to use this attribute directive just add the attribute. `<p appMyNewDirective>Yellow me!</p>`.
+
+```typescript
+import { HighlightDirective } from './highlight.directive';
+...
+declarations: [
+    ...
+    HighlightDirective
+  ],
+...
+```
 
 ## Structural Directives ##
 
@@ -42,47 +52,11 @@ Directive Deep Dive:
 * [https://angular.io/api/common/NgIf](https://angular.io/api/common/NgIf)
 * [https://angular.io/api/common/NgSwitch](https://angular.io/api/common/NgSwitch)
 
- An example of creating your own can be seen below:
-
- ```typescript
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-
-/**
- * Add the template content to the DOM unless the condition is true.
- */
-@Directive({ selector: '[appUnless]'})
-export class UnlessDirective {
-  private hasView = false;
-
-  constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef) { }
-
-  @Input() set appUnless(condition: boolean) {
-    if (!condition && !this.hasView) {
-      this.viewContainer.createEmbeddedView(this.templateRef);
-      this.hasView = true;
-    } else if (condition && this.hasView) {
-      this.viewContainer.clear();
-      this.hasView = false;
-    }
-  }
-}
- ```
-
-Using this directive in your code as follows:
-
-```html
-<p *appUnless="condition" class="unless a">
-  (A) This paragraph is displayed because the condition is false.
-</p>
-
-<p *appUnless="!condition" class="unless b">
-  (B) Although the condition is true,
-  this paragraph is displayed because appUnless is set to false.
-</p>
-```
 
 ## Excercise ##
 
-Add validators to the form you created in the previous exercise, then outline the form in red if it fails validation. Call this directive `myTextValidator`.
+1. Create a component manually or with the CLI.
+2. Create a Parent-Child Component(s).
+3. Pass Data from Parent -> Child
+4. Pass Data from Child -> Parent
+5. Utilize a `ngFor`, `ngIf`, and your own `custom` directive.
