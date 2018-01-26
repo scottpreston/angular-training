@@ -1,0 +1,11 @@
+<h1>New Hero Form</h1>
+<p>
+  <input #name>,
+  <input #alias>
+   <button (click)="addHero(name.value,alias.value)">Add Hero</button>
+</p>
+<hr>
+<h2>Added Heros</h2>
+<ul>
+  <li *ngFor="let hero of heroes">{{hero.name}} -- {{hero.alias}}</li>
+</ul>

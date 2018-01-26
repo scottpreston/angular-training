@@ -1,35 +1,13 @@
 # Angular Forms # 
 
+This will be an overview of forms usage in Angular.
+
 ## User Input ##
 
 The `#` character is an `Angular Template Referecne Variable`. It allows direct access to an element from within the template.
 
 So in the example below `#newHero` lets us access `newHero` in the `statement.directives` on all 3 
 events.
-
-```typescript
-@Component({
-    selector: 'sample-component',
-    template: `
-      <input #newHero
-        (keyup.enter)="addHero(newHero.value)"
-        (blur)="addHero(newHero.value); newHero.value='' ">
-  
-      <button (click)="addHero(newHero.value)">Add</button>
-  
-      <ul><li *ngFor="let hero of heroes">{{hero}}</li></ul>
-    `
-  })
-  export class SampleComponent {
-    heroes = ['Iron Man', 'Thor', 'Hulk', 'Captain America'];
-    addHero(newHero: string) {
-      if (newHero) {
-        this.heroes.push(newHero);
-      }
-    }
-  }
-```
-
 
 ## Template-Driven Forms ##
 
@@ -48,6 +26,45 @@ The `model class` is the hero object. This acts as class for new instances creat
 `ngForm` and `ngSubmit` 
 
 These are directives designed to replace `<form>` and `onSubmit` event handlers. 
+
+```html
+<h1>New Hero Form</h1>
+<p>
+  <input #name>,
+  <input #alias>
+   <button (click)="addHero(name.value,alias.value)">Add Hero</button>
+</p>
+<hr>
+<h2>Added Heros</h2>
+<ul>
+  <li *ngFor="let hero of heroes">{{hero.name}} -- {{hero.alias}}</li>
+</ul>
+```
+
+And the component.
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import {Hero} from '../hero';
+
+@Component({
+  selector: 'app-heroform',
+  templateUrl: './heroform.component.html',
+  styleUrls: ['./heroform.component.css']
+})
+export class HeroformComponent implements OnInit {
+  heroes: Array<Hero> = new Array();
+  constructor() { }
+
+  ngOnInit() {
+  }
+  
+  addHero(name: string, alias: string) {
+      this.heroes.push(new Hero(name,alias));
+  }
+}
+
+```
 
 ## Form Validation ##
 
