@@ -1,0 +1,6 @@
+<h2>List of Heros</h2>
+<div>Votes: {{voteCount}}</div>
+<app-herochild *ngFor="let hero of heroes"
+      [name]="hero.name"
+      (onVoted)="onVoted($event)">
+    </app-herochild>

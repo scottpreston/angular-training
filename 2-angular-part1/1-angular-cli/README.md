@@ -42,6 +42,6 @@ The examples below `g` is short for generate.
 
 ## Exercise ##
 
-* Install `ng`, then create your first example app.
-* Create a `component`.
-* Create a `class`.
+1. Install `ng`, then create your first example app.
+2. Create a `component`.
+3. Create a `class`.

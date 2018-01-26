@@ -1,5 +1,13 @@
 # Angular Components #
 
+To begin create a new app.
+
+```bash
+ng new componentSample
+cd componentSample
+ng g component hero
+```
+
 ## Simple Component
 
 ```typescript
@@ -15,7 +23,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Tour of Heroes';
   myHero = 'Windstorm';
-  
 }
 ```
 
@@ -37,7 +44,16 @@ export class AppComponent {
 }
 ```
 
+### Exercise (Basic Components)
+
+Create a new project and add a new `custom component` using the `CLI`.
+
 ## Parent Components
+
+```bash
+ng g component heroparent
+ng g component herochild
+```
 
 ```typescript
 import { Component } from '@angular/core';
@@ -84,13 +100,13 @@ export class HeroChildComponent {
 
 Talked about 2 Decorators. `@Component` and `@Input`.
 
-* `@Component` - 
+* `@Component` - Decorator for a Component Type
 * `@Input` - Flow is `into` the property when it's data is bound.
 * `@Output` - Value flows `out` of the component as events bound w/Event Binding. (Usually EventEmiiter)
 
 ## Component Communication ##
 
-Voter (Parent)
+Voter (Child)
 
 ```typescript
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -103,6 +119,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     <button (click)="vote(false)" [disabled]="voted">Disagree</button>
   `
 })
+
 export class VoterComponent {
   @Input()  name: string;
   @Output() onVoted = new EventEmitter<boolean>();
@@ -115,7 +132,7 @@ export class VoterComponent {
 }
 ```
 
-Vote Taker (Child)
+Vote Taker (Parent)
 
 ```typescript
 import { Component }      from '@angular/core';
@@ -141,7 +158,6 @@ export class VoteTakerComponent {
   }
 }
 ```
-
 ## Angular Lifecycle ##
 
 A `component` has a lifecycle managed by Angular.
@@ -161,9 +177,7 @@ A `component` has a lifecycle managed by Angular.
 
 Note: `All information copied from https://angular.io/guide/lifecycle-hooks`
 
-## HTML Component Templates ##
+## Exercise (Parent-Child Component)
 
-* Inline - like `app.component.ts`
-* External - referencing a static HTML or CSS document, like `app2.component.ts`
-
-
+Create a Parent-Child Component where you can communicate from Parent->Child and
+from Child->Parent.
