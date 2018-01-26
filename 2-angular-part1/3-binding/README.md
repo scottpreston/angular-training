@@ -8,7 +8,6 @@ Lets begin by looking at somet of the binding we've already used in the previous
 * One-Way -> Template Expressions `[hidden]="property"`
 * One-Way -> Template Statements `(click)="deleteHero()"`
 
-
 ## One Way Bindingss
 
 HTML Templates / `{{Interpolation}}`
@@ -80,22 +79,3 @@ Conditional Attribute Directive
 ```typescript
 <div *ngIf="show">Text to show</div>
 ```
-
-## Exercise ##
-
-1. Create a component manually or with the CLI.
-2. Create a Parent-Child Component where the data from one component is read/consumed in the other.
-3. Create one and two way bindings so form data can display in a table below using `ngFor`.
-4. Color the rows based on some data in the form.
-
-Example JSON of a hero.
-
-```
-const hero = {
-    name: "Tony Stark",
-    alias: "Iron Man",
-    favoriteColor: "FF3C00" // hotrod red
-}
-```
-
-Create an app to add, edit, delete and display this information in a table.

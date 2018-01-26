@@ -44,16 +44,7 @@ export class AppComponent {
 }
 ```
 
-### Exercise (Basic Components)
-
-Create a new project and add a new `custom component` using the `CLI`.
-
 ## Parent Components
-
-```bash
-ng g component heroparent
-ng g component herochild
-```
 
 ```typescript
 import { Component } from '@angular/core';
@@ -176,8 +167,3 @@ A `component` has a lifecycle managed by Angular.
 * ngOnDestroy() - Cleanup just before Angular destroys the directive/component.
 
 Note: `All information copied from https://angular.io/guide/lifecycle-hooks`
-
-## Exercise (Parent-Child Component)
-
-Create a Parent-Child Component where you can communicate from Parent->Child and
-from Child->Parent.
