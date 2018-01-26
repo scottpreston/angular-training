@@ -1,0 +1,18 @@
+{
+  "name": "angular-training-node-demo",
+  "version": "1.0.0",
+  "description": "1. What's NodeJS? 2. What's NPM? 3. What's a Module? 4. package.json - scripts, --save and --save-dev 5. Simple node examples (lodash and express)",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "lodash": "^4.17.4"
+  }
+}
