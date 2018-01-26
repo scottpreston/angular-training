@@ -166,8 +166,4 @@ Note: `All information copied from https://angular.io/guide/lifecycle-hooks`
 * Inline - like `app.component.ts`
 * External - referencing a static HTML or CSS document, like `app2.component.ts`
 
-## Exercise ##
-
-1. Create a component manually or with the CLI.
-2. Create a Parent-Child Component where the data from one component is read/consumed in the other.
 
