@@ -31,6 +31,8 @@ console.log(hello('Scott'));
 
 ### TypeScript Types
 
+[Official Docs - Types](https://www.typescriptlang.org/docs/handbook/basic-types.html)
+
 ```typescript
 //boolean
 let isDone: boolean = false;
@@ -62,6 +64,8 @@ let notSure: any = 4;
 
 ### Interfaces
 
+[Official Docs - Interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html)
+
 Just like in Java or C#.
 
 ```typescript
@@ -81,6 +85,8 @@ let point3d: Point3d = {x: 1, y: 2, z: 3};
 ```
 
 ### Classes
+
+[Official Docs - Classes](https://www.typescriptlang.org/docs/handbook/classes.html)
 
 Types matter but you don't need to specify a return type on functions.
 
@@ -103,6 +109,8 @@ console.log(f.getBar());
 
 ### Enums
 
+[Official Docs - Classes](https://www.typescriptlang.org/docs/handbook/enums.html)
+
 ```typescript
 enum Direction {
     Up = 1,
@@ -113,6 +121,8 @@ enum Direction {
 ```
 
 ### TSConfig.json
+
+[Offical Docs - tsconfig](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 
 This is the configuration file for the typescript compiler or `tsc`. 
 
@@ -132,7 +142,11 @@ This is the configuration file for the typescript compiler or `tsc`.
 }
 ```
 
-## Exercise
+### Additional TypeScript Topics ###
+
+
+
+## Exercise ##
 
 1. Modify ES6 example to use TypeScript.
 2. Create an Interface for your `PingPong` class called `IPingPong` and use a `decimal` type for the counter.
