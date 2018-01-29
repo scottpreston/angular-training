@@ -142,9 +142,29 @@ This is the configuration file for the typescript compiler or `tsc`.
 }
 ```
 
-### Additional TypeScript Topics ###
+### Decorators ###
 
+[Official Docs - Decorators](https://www.typescriptlang.org/docs/handbook/decorators.html)
 
+Decorators are used a lot in Angular. A Decorator is a special kind of declaration that 
+can be attached to a class declaration, method, accessor, property, or parameter. 
+
+```typescript
+const foo = (target: Object, key: string | symbol, descriptor: TypedPropertyDescriptor<Function>) => {
+    console.log("decorator -- foo");
+}
+
+class Pet {
+    constructor(name: string, age: number) {}
+    @foo
+    bar() {
+        console.log('bar');
+    }
+}
+ 
+let p = new Pet("Max", 12);
+p.bar()
+```
 
 ## Exercise ##
 
