@@ -169,4 +169,4 @@ p.bar()
 ## Exercise ##
 
 1. Modify ES6 example to use TypeScript.
-2. Create an Interface for your `PingPong` class called `IPingPong` and use a `decimal` type for the counter.
+2. Create an Interface for your `PingPong` class called `IPingPong` and use a `number` type for the counter.
