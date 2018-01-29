@@ -41,7 +41,7 @@ Some basics npm commands.
 ## What is a module?
 
 A module is a piece of code that is imported like an object. In JavaScript you use to get access to 
-libraries via including them via `<script>` tags. Then refering to those via a namespace like `jQuery` or `$`.
+libraries via including them via `<script>` tags. Then referring to those via a namespace like `jQuery` or `$`.
 
 In NodeJS it's a little different. Here the format is called `CommonJS`. 
 

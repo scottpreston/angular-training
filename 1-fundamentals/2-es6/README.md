@@ -10,14 +10,14 @@ ES6 is now fully supported by the latest version of Node so there should not be 
 * 3-block.js - blocks overview
 * 4-arrow.js - arrow functions overview
 * 5-params.js - method default parameters
-* 6-template.js - string tempaltes
+* 6-template.js - string templates
 * 7-object-properties.js - overview of properties
 * 8-classes.js - more about ES6 classes
 * 9-inheritance.js - inheritance with ES6 classes
 * 10-static.js - an overview of `static` keyword
 * 11-gettersetter.js - adding getters and setters
 * 12-forof.js - the `for-of` loop in ES6
-* 13-metaprogramming.js - metaprogramming overview
+* 13-metaprogramming.js - meta-programming overview
 * 14-generators.js - generators overview
 * 15-maps.js - new collection types in ES6
 * 16-typedarrays.js - new array types  
