@@ -97,7 +97,7 @@ Talked about 2 Decorators. `@Component` and `@Input`.
 
 ## Component Communication ##
 
-Voter (Child)
+### Example Child ###
 
 ```typescript
 import { Component, OnInit, Input } from '@angular/core';
@@ -125,7 +125,7 @@ export class HerochildComponent implements OnInit {
 <button (click)="vote()">Vote</button>
 ```
 
-Vote Taker (Parent)
+### Example Parent ###
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
