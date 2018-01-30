@@ -8,7 +8,7 @@ cd componentSample
 ng g component hero
 ```
 
-## Simple Component
+## Simple Component - with inline template
 
 ```typescript
 import { Component } from '@angular/core';
@@ -26,7 +26,7 @@ export class AppComponent {
 }
 ```
 
-## Component with external HTML and CSS
+## Simple Component - with external HTML and CSS
 
 ```typescript
 import { Component } from '@angular/core';
@@ -45,87 +45,6 @@ export class AppComponent {
 ```
 
 ## Parent Components
-
-```typescript
-import { Component } from '@angular/core';
-
-import { HEROES } from './hero';
-
-@Component({
-  selector: 'app-hero-parent',
-  template: `
-    <h2>{{master}} controls {{heroes.length}} heroes</h2>
-    <app-hero-child *ngFor="let hero of heroes"
-      [hero]="hero"
-      [master]="master">
-    </app-hero-child>
-  `
-})
-export class HeroParentComponent {
-  heroes = HEROES;
-  master = 'Master';
-}
-```
-
-## Child Component
-
-```typescript
-import { Component, Input } from '@angular/core';
-
-import { Hero } from './hero';
-
-@Component({
-  selector: 'app-hero-child',
-  template: `
-    <h3>{{hero.name}} says:</h3>
-    <p>I, {{hero.name}}, am at your service, {{masterName}}.</p>
-  `
-})
-export class HeroChildComponent {
-  @Input() hero: Hero;
-  @Input('master') masterName: string;
-}
-```
-
-## Decorators
-
-Talked about 2 Decorators. `@Component` and `@Input`.
-
-* `@Component` - Decorator for a Component Type
-* `@Input` - Flow is `into` the property when it's data is bound.
-* `@Output` - Value flows `out` of the component as events bound w/Event Binding. (Usually EventEmiiter)
-
-## Component Communication ##
-
-### Example Child ###
-
-```typescript
-import { Component, OnInit, Input } from '@angular/core';
-
-@Component({
-  selector: 'app-herochild',
-  templateUrl: './herochild.component.html',
-  styleUrls: ['./herochild.component.css']
-})
-export class HerochildComponent implements OnInit {
-  
-  @Input('name') name: string;
-  
-  constructor() { }
-
-  ngOnInit() {
-    
-  }
-
-}
-```
-
-```html
-<p>I am {{name}}.</p>
-<button (click)="vote()">Vote</button>
-```
-
-### Example Parent ###
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -152,16 +71,72 @@ export class HeroparentComponent implements OnInit {
     this.voteCount = this.voteCount + 1;
   }
 }
+
 ```
+
+### Parent Template
 
 ```html
 <h2>List of Heros</h2>
 <div>Votes: {{voteCount}}</div>
-<app-herochild *ngFor="let hero of heroes"
+<app-herochild *ngFor="let hero of heroes; let i = index"
       [name]="hero.name"
+      [index]="i"
       (onVoted)="onVoted($event)">
     </app-herochild>
 ```
+
+## Child Component
+
+```typescript
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {HighlightDirective} from '../highlight.directive';
+
+@Component({
+  selector: 'app-herochild',
+  templateUrl: './herochild.component.html',
+  styleUrls: ['./herochild.component.css']
+})
+export class HerochildComponent implements OnInit {
+
+  @Input('name') name: string;
+  @Input('index') index: number;
+  @Output() onVoted = new EventEmitter<boolean>();
+  toHighlight : boolean;
+  
+  vote() {
+    this.onVoted.emit(true);
+  }
+  
+  constructor() { 
+    
+  }
+
+  ngOnInit() {
+    this.toHighlight = (this.index % 2 === 0);
+  }
+
+}
+
+```
+
+### Child Template
+
+```html
+<div class="hero">{{toHighlight}}
+<p *ngIf="toHighlight" appHighlight >I am {{name}} ({{index}}).</p>
+<p *ngIf="toHighlight == false">I am {{name}} ({{index}}).</p>
+<button (click)="vote()">Vote</button>
+</div>
+```
+
+## Decorators
+
+Talked about 2 Decorators. `@Component` and `@Input`.
+
+* `@Component` - Decorator for a Component Type
+* `@Input` - Flow is `into` the property when it's data is bound.
+* `@Output` - Value flows `out` of the component as events bound w/Event Binding. (Usually EventEmiiter)
 
 ## Angular Lifecycle ##
 
