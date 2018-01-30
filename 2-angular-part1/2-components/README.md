@@ -100,55 +100,69 @@ Talked about 2 Decorators. `@Component` and `@Input`.
 Voter (Child)
 
 ```typescript
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-voter',
-  template: `
-    <h4>{{name}}</h4>
-    <button (click)="vote(true)"  [disabled]="voted">Agree</button>
-    <button (click)="vote(false)" [disabled]="voted">Disagree</button>
-  `
+  selector: 'app-herochild',
+  templateUrl: './herochild.component.html',
+  styleUrls: ['./herochild.component.css']
 })
+export class HerochildComponent implements OnInit {
+  
+  @Input('name') name: string;
+  
+  constructor() { }
 
-export class VoterComponent {
-  @Input()  name: string;
-  @Output() onVoted = new EventEmitter<boolean>();
-  voted = false;
-
-  vote(agreed: boolean) {
-    this.onVoted.emit(agreed);
-    this.voted = true;
+  ngOnInit() {
+    
   }
+
 }
+```
+
+```html
+<p>I am {{name}}.</p>
+<button (click)="vote()">Vote</button>
 ```
 
 Vote Taker (Parent)
 
 ```typescript
-import { Component }      from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {Hero} from '../hero'
 
 @Component({
-  selector: 'app-vote-taker',
-  template: `
-    <h2>Should mankind colonize the Universe?</h2>
-    <h3>Agree: {{agreed}}, Disagree: {{disagreed}}</h3>
-    <app-voter *ngFor="let voter of voters"
-      [name]="voter"
-      (onVoted)="onVoted($event)">
-    </app-voter>
-  `
+  selector: 'app-heroparent',
+  templateUrl: './heroparent.component.html',
+  styleUrls: ['./heroparent.component.css']
 })
-export class VoteTakerComponent {
-  agreed = 0;
-  disagreed = 0;
-  voters = ['Mr. IQ', 'Ms. Universe', 'Bombasto'];
+export class HeroparentComponent implements OnInit {
+  
+  heroes: Array<Hero> = new Array();
+  voteCount: number = 0
 
+  constructor() { }
+
+  ngOnInit() {
+    this.heroes.push( new Hero("Tony Stark", "Iron Man"));
+    this.heroes.push(new Hero("Steve Rogers", "Captain America"));
+  }
+  
   onVoted(agreed: boolean) {
-    agreed ? this.agreed++ : this.disagreed++;
+    this.voteCount = this.voteCount + 1;
   }
 }
 ```
+
+```html
+<h2>List of Heros</h2>
+<div>Votes: {{voteCount}}</div>
+<app-herochild *ngFor="let hero of heroes"
+      [name]="hero.name"
+      (onVoted)="onVoted($event)">
+    </app-herochild>
+```
+
 ## Angular Lifecycle ##
 
 A `component` has a lifecycle managed by Angular.
