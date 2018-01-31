@@ -136,7 +136,7 @@ Talked about 2 Decorators. `@Component` and `@Input`.
 
 * `@Component` - Decorator for a Component Type
 * `@Input` - Flow is `into` the property when it's data is bound.
-* `@Output` - Value flows `out` of the component as events bound w/Event Binding. (Usually EventEmiiter)
+* `@Output` - Value flows `out` of the component as events bound w/Event Binding. (Usually EventEmitter)
 
 ## Angular Lifecycle ##
 
