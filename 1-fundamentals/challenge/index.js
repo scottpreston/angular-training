@@ -3,9 +3,11 @@ const app = express()
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer();
+var cors = require('cors');
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cors());
 
 let tweetsList = [];
 
