@@ -1,0 +1,5 @@
+<div class="hero">{{toHighlight}}
+  <p *ngIf="toHighlight" appHighlight >I am {{name}} -- <a routerLink="/hero/{{index}}">Detail</a>.</p>
+  <p *ngIf="toHighlight == false">I am {{name}} -- <a routerLink="/hero/{{index}}">Detail</a>.</p>
+  <button (click)="vote()">Vote</button>
+  </div>
