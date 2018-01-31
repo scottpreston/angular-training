@@ -1,14 +1,13 @@
 # Using Jasmine w/Angular #
 
+Lets review the specs in our `testExample`.
 
-## The Basics ## 
-
-There's a few steps different than the Jasmine examples you used previously because
-of the Angular SPA architecture.
-
-1. You need to have a `beforeEach` block to compile the angular app/component.
+## App Component ## 
 
 ```typescript
+import { TestBed, async } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -16,109 +15,139 @@ of the Angular SPA architecture.
       ],
     }).compileComponents();
   }));
+  it('should create the app', async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
+  }));
+  it(`should have as title 'app'`, async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('app');
+  }));
+  it('should render title in a h1 tag', async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
+  }));
+});
+
 ```
 
-2. You need to create your `component` via the test bed as a `fixture`.
+## Directive ##
 
 ```typescript
-const fixture = TestBed.createComponent(AppComponent);
-fixture.detectChanges();
-const compiled = fixture.debugElement.nativeElement;
-expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
-```
+import { HighlightDirective } from './highlight.directive';
 
-3. To force detection of changes we call `fixture.detectChanges();`
-4. Compile the changes
-5. Expect the result via a selector.
+import { Component, DebugElement }   from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
-## Mocks, Directives and HTTP ##
 
-A component-under-test doesn't have to be injected with real services. 
-In fact, it is usually better if they are `test doubles` (stubs, fakes, spies, or mocks). 
-The purpose of the spec is to test the component,not the service, and real services can be trouble.
+@Component({
+  template: `<h2 appHighlight>Test Highlight</h2>`
+})
+class TestComponent { }
 
-### Mocks ###
+describe('HighlightDirective', () => {
 
-Use the `providers` section to inject the mock `userServiceStub`.
+  let fixture: ComponentFixture<TestComponent>;
+  let h2Elt: DebugElement;  // the three elements w/ the directive
+  
+  beforeEach(() => {
+    fixture = TestBed.configureTestingModule({
+      declarations: [ HighlightDirective, TestComponent ]
+    })
+    .createComponent(TestComponent);
 
-```typescript
-beforeEach(() => {
-  // stub UserService for test purposes
-  userServiceStub = {
-    isLoggedIn: true,
-    user: { name: 'Test User'}
-  };
+    fixture.detectChanges(); // initial binding
 
-  TestBed.configureTestingModule({
-     declarations: [ WelcomeComponent ],
-     providers:    [ {provide: UserService, useValue: userServiceStub } ]
+    // all elements with an attached HighlightDirective
+    h2Elt = fixture.debugElement;
+    //console.log(fixture)
+
   });
 
-  fixture = TestBed.createComponent(WelcomeComponent);
-  comp    = fixture.componentInstance;
+  // color tests
+  it('should change background to yellow', () => {
+    console.log(h2Elt.nativeElement.firstChild)
+    const bgColor = h2Elt.nativeElement.firstChild.style.backgroundColor;
+    expect(bgColor).toBe('yellow');
+  });
 
-  // UserService from the root injector
-  userService = TestBed.get(UserService);
-
-  //  get the "welcome" element by CSS selector (e.g., by class name)
-  de = fixture.debugElement.query(By.css('.welcome'));
-  el = de.nativeElement;
 });
+
+
 ```
 
-### Directives ###
-
-For directives you ned to trigger events or trigger the UI into simulating the action. For
-our `hover` directive. See the following:
+## Service ## 
 
 ```typescript
-it('hovering over input', () => {
-  let inputEl = fixture.debugElement.query(By.css('input'));
-  inputEl.triggerEventHandler('mouseover', null); 
-  fixture.detectChanges();
-  expect(inputEl.nativeElement.style.backgroundColor).toBe('blue'); 
+import {
+  async, inject, TestBed
+} from '@angular/core/testing';
 
-  inputEl.triggerEventHandler('mouseout', null);
-  fixture.detectChanges();
-  console.log(inputEl.nativeElement.style.backgroundColor);
-  expect(inputEl.nativeElement.style.backgroundColor).toBe('inherit');
+import {
+  MockBackend,
+  MockConnection
+} from '@angular/http/testing';
+
+import {
+  HttpModule, Http, XHRBackend, Response, ResponseOptions
+} from '@angular/http';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/toPromise';
+
+import { Hero } from './hero';
+
+const makeHeroData = () => ['Iron Man', 'Thor'];
+
+import { HeroserviceService } from './hero.service';
+describe('Http-HeroService (mockBackend)', () => {
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpModule],
+      providers: [
+        HeroserviceService,
+        { provide: XHRBackend, useClass: MockBackend }
+      ]
+    })
+      .compileComponents();
+  }));
+
+  describe('HeroserviceService.fetchHeros', () => {
+    let backend: MockBackend;
+    let service: HeroserviceService;
+    let fakeHeroes: string[];
+    let response: Response;
+
+    beforeEach(inject([Http, XHRBackend], (http: Http, be: MockBackend) => {
+      backend = be;
+      service = new HeroserviceService(http);
+      fakeHeroes = makeHeroData();
+      let options = new ResponseOptions({ status: 200, body: { data: fakeHeroes } });
+      response = new Response(options);
+    }));
+
+    it('should have expected fake heroes (then)', async(inject([], () => {
+      backend.connections.subscribe((c: MockConnection) => c.mockRespond(response));
+
+      service.fetchHeros().toPromise()
+      // .then(() => Promise.reject('deliberate'))
+        .then(heroes => {
+          let json = heroes.json();
+          expect(json.data.length).toBe(fakeHeroes.length,
+            'should have expected no. of heroes');
+        });
+    })));
+  });
+
 });
-```
-
-### Http ###
-
-Look at the example component. 
-
-```typescript
-@Component({
-  selector: 'twain-quote',
-  template: '<p class="twain"><i>{{quote}}</i></p>'
-})
-export class TwainComponent  implements OnInit {
-  intervalId: number;
-  quote = '...';
-  constructor(private twainService: TwainService) { }
-
-  ngOnInit(): void {
-    this.twainService.getQuote().then(quote => this.quote = quote);
-  }
-}
-```
-
-In spec:
-
-```typescript
-  const testQuote = 'Test Quote';
-// Setup spy on the `getQuote` method
-  spy = spyOn(twainService, 'getQuote')
-        .and.returnValue(Promise.resolve(testQuote));
-
-
-// get the spy promise and wait for it to resolve
-    spy.calls.mostRecent().returnValue.then(() => {
-      fixture.detectChanges(); // update view with quote
-      expect(el.textContent).toBe(testQuote);
-      done();
-    });
-
 ```

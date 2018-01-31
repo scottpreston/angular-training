@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Hero} from '../hero';
+import { Hero } from '../hero';
+import { HeroserviceService } from '../heroservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-heroform',
@@ -7,13 +9,24 @@ import {Hero} from '../hero';
   styleUrls: ['./heroform.component.css']
 })
 export class HeroformComponent implements OnInit {
-  heroes: Array<Hero> = new Array();
-  constructor() { }
+
+  constructor(
+    private heroService: HeroserviceService,
+    private router: Router) {
+
+  }
+
+  model = new Hero('', '');
 
   ngOnInit() {
   }
-  
-  addHero(name: string, alias: string) {
-      this.heroes.push(new Hero(name,alias));
+
+  onSubmit() {
+    this.heroService.addHero(this.model.name).subscribe(data => {
+      alert('thank you!');
+      this.router.navigateByUrl('/heros');
+    });
+
   }
+
 }

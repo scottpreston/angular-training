@@ -107,11 +107,9 @@ These are different than template driven forms. These are `synchronous` whereas 
 ### Template Driven Approach
 
 ```html
-
 <input id="name" name="name" class="form-control"
        required minlength="4" forbiddenName="bob"
        [(ngModel)]="hero.name" #name="ngModel" >
-
 ```
 
 * Simple like Angular1
