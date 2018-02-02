@@ -179,4 +179,4 @@ The flow follows:
 Cordova / PhoneGap / Electron all allow you to create mobile or desktop applications 
 by using HTML, CSS and JS.
 
-For More information go to the [Cordova Section](./cordova).
+For More information go to the [Cordova Section](./2-cordova).
