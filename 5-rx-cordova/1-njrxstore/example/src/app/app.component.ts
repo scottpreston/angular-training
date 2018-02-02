@@ -2,7 +2,9 @@ import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Store} from "@ngrx/store";
 
-interface AppState {}
+interface AppState {
+  counter: number
+}
 
 @Component({
   selector: 'app-root', 
@@ -11,11 +13,11 @@ interface AppState {}
 
 export class AppComponent {
   private title = 'app';
-  private counter: number;
+  private counter$: Observable<number>;
   
   constructor(private store: Store<AppState>) {
     // sets it to reference in store, selecting state 'counter'
-    this.counter = this.store.select('counter');
+    this.counter$ = this.store.select('counter');
   }
 
   increment() {

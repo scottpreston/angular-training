@@ -4,7 +4,7 @@
     Welcome to {{ title }}!
   </h1>
   <hr>
-  <div>Current Count: {{ counter  | async }}</div>
+  <div>Current Count: {{ counter$ | async }}</div>
   <!-- The async pipe subscribes to an Observable or Promise and returns the latest value it has emitted.  -->
   <button (click)="increment()">Increment</button>
   <button (click)="decrement()">Decrement</button> 
