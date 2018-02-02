@@ -60,7 +60,7 @@ A few operators of note:
 2. Utilize `Map`, `Deboune` and `Filter` operators.
 3. Subscribe this observable to `console.log`.
 
-## NG-Rx-Store ##
+## NGRx-Store ##
 
 Ng-Rx-Store was inspired by Redux. Which was an implementation of Flux.
 
@@ -71,106 +71,109 @@ Redux Explained
 
 ![redux](./redux-explained.png "redux explained")
 
-### NgRx Store / Example ###
-
-Component
+### NgRx - App.Module ###
 
  ```typescript
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { INCREMENT, DECREMENT, RESET } from './counter';
-
-interface AppState {
-  count: number;
-}
-
-@Component({
-  selector: 'my-app',
-  template: `
-    <button (click)="increment()">Increment</button>
-    <div>Current Count: {{ count$ | async }}</div>
-    <button (click)="decrement()">Decrement</button>
-
-    <button (click)="reset()">Reset Counter</button>
-  `
-})
-export class MyAppComponent {
-  count$: Observable<number>;
-
-  constructor(private store: Store<AppState>) {
-    this.count$ = store.pipe(select('count'));
-  }
-
-  increment(){
-    this.store.dispatch({ type: INCREMENT });
-  }
-
-  decrement(){
-    this.store.dispatch({ type: DECREMENT });
-  }
-
-  reset(){
-    this.store.dispatch({ type: RESET });
-  }
-}
- ```
-
- Reducer
-
- ```typescript
-import { Action } from '@ngrx/store';
-
-export const INCREMENT = 'INCREMENT';
-export const DECREMENT = 'DECREMENT';
-export const RESET = 'RESET';
-
-export function counterReducer(state: number = 0, action: Action) {
-  switch (action.type) {
-    case INCREMENT:
-      return state + 1;
-    case DECREMENT:
-      return state - 1;
-
-    case RESET:
-      return 0;
-
-    default:
-      return state;
-  }
-}
- ```
-
-Bootstrapping
-
-```typescript
-import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { counterReducer } from './counter';
+import {counterReducer} from './reducers/counter';
 
 @NgModule({
+  declarations: [
+    AppComponent
+  ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({ count: counterReducer })
-  ]
+    StoreModule.forRoot({ counter: counterReducer}) // state, reducer
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
+
+ ```
+
+### NgRx - Reducer
+
+ ```typescript
+import {ActionReducer, Action} from "@ngrx/store";
+
+export const counterReducer: ActionReducer<number> = (state: number = 0, action: Action) => {
+    switch(action.type){
+        case 'INCREMENT':
+            return state + 1;
+        case 'DECREMENT':
+            return state - 1;
+        default:
+            return state;
+    }
+};
+ ```
+
+### NgRx - Component
+
+```typescript
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {Store} from "@ngrx/store";
+
+interface AppState {}
+
+@Component({
+  selector: 'app-root', 
+  templateUrl: './app.component.html', 
+  styleUrls: ['./app.component.css']})
+
+export class AppComponent {
+  private title = 'app';
+  private counter: number;
+  
+  constructor(private store: Store<AppState>) {
+    // sets it to reference in store, selecting state 'counter'
+    this.counter = this.store.select('counter');
+  }
+
+  increment() {
+    this.store.dispatch({type: 'INCREMENT'});
+  }
+
+  decrement() {
+    this.store.dispatch({type: 'DECREMENT'});
+  }
+
+}
+
+```
+
+### Template
+
+```html
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+  <hr>
+  <div>Current Count: {{ counter  | async }}</div>
+  <!-- The async pipe subscribes to an Observable or Promise and returns the latest value it has emitted.  -->
+  <button (click)="increment()">Increment</button>
+  <button (click)="decrement()">Decrement</button> 
+</div>
 ```
 
 The flow follows:
 
-1. Component is constructed and `subscribes` to Store.
+1. Component is constructed and `subscribes/select` to Store.
 2. Dispatch From Component
 3. Reducer Looks at `TYPE` and reduces state.
-4. Because of `subscribe` when state updates, it modifies component.
+4. Because of `subscribe/select` when state updates, it modifies component.
 
 ### Exercise ###
 
-1. Create a new App.
-2. Create it with a few buttons up/down.
-3. Use NgRxStore to mange buttons. 
-4. Make your component subscribe to changes from the up/down buttons, by moving CSS 
-position up or down in 10px increments.
-5. Bonus Work. Modify [This Game](https://github.com/scottpreston/sandbox/tree/master/simple-game) and replace your code to move CSS up and down to move the person in the game up and down.
+* Modify Challenge in `3-angular-part2/challenge` to use NgRx for `Hero Form` Component
+* Bonus Work. Modify [This Game](https://github.com/scottpreston/sandbox/tree/master/simple-game) and replace your code to move CSS up and down to move the person in the game up and down.
 
 ## Cordova ##
 
