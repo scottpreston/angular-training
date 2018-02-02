@@ -191,3 +191,7 @@ cd game
 npm install
 npm start
 ```
+## Eric's Hook Example ##
+
+This links NG to Cordova.
+[https://github.com/Ericdowney/CordovaAngular2Test](https://github.com/Ericdowney/CordovaAngular2Test)
