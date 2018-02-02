@@ -22,14 +22,13 @@ From `ReactiveX` [http://reactivex.io/documentation/observable.html](http://reac
 Simplest Observable In Code:
 
 ```javascript
+var Rx = require('rxjs/Rx');
 var observable = Rx.Observable.create(function subscribe(observer) {
-  var id = setInterval(() => {
-    observer.next('hi')
-  }, 1000);
-});
-
-observable.subscribe(x => console.log(x));
-});
+    var id = setInterval(() => {
+      observer.next('hi')
+    }, 1000);
+  });
+observable.subscribe(x => console.log(x));  
 ```
 
 ## Observables vs. Promises ##
