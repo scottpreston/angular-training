@@ -171,8 +171,7 @@ The flow follows:
 
 ### Exercise ###
 
-* Modify Challenge in `3-angular-part2/challenge` to use NgRx for `Hero Form` Component
-* Bonus Work. Modify [This Game](https://github.com/scottpreston/sandbox/tree/master/simple-game) and replace your code to move CSS up and down to move the person in the game up and down.
+Modify Challenge in `3-angular-part2/challenge` to use NgRx for `Hero Form` Component
 
 ## Cordova ##
 
@@ -180,3 +179,15 @@ Cordova / PhoneGap / Electron all allow you to create mobile or desktop applicat
 by using HTML, CSS and JS.
 
 For More information go to the [Cordova Section](./2-cordova).
+
+### Exercise ##
+
+Download the code in `5-rx-cordova/game` and add it to your Cordova App.
+
+To run this game:
+
+```bash
+cd game
+npm install
+npm start
+```
