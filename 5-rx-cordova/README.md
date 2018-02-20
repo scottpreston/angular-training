@@ -171,27 +171,7 @@ The flow follows:
 
 ### Exercise ###
 
-Modify Challenge in `3-angular-part2/challenge` to use NgRx for `Hero Form` Component
+Modify Challenge in `3-angular-part2/challenge` to use:
 
-## Cordova ##
-
-Cordova / PhoneGap / Electron all allow you to create mobile or desktop applications 
-by using HTML, CSS and JS.
-
-For More information go to the [Cordova Section](./2-cordova).
-
-### Exercise ##
-
-Download the code in `5-rx-cordova/game` and add it to your Cordova App.
-
-To run this game:
-
-```bash
-cd game
-npm install
-npm start
-```
-## Eric's Hook Example ##
-
-This links NG to Cordova.
-[https://github.com/Ericdowney/CordovaAngular2Test](https://github.com/Ericdowney/CordovaAngular2Test)
+* NgRx/Store for `Hero Form` Component.
+* NgRx/Effects for Async Calls.
