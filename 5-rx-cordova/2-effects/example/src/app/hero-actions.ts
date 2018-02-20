@@ -8,8 +8,11 @@ export enum HeroActionTypes {
 }
 
 export class HeroLoad implements Action {
+   
     readonly type = HeroActionTypes.Fetch;
-    constructor(public payload: Hero[]) { }
+    constructor(public payload: Hero[]) {
+        console.log('in hero load');
+     }
 }
 export class HeroLoadSuccess implements Action {
     readonly type = HeroActionTypes.FetchSuccess;

@@ -3,8 +3,10 @@ import { Hero } from './hero';
 import { HeroActions, HeroActionTypes } from './hero-actions'
 
 export const HeroReducer: ActionReducer<Hero[]> = (state: Hero[] = [], action: HeroActions) => {
+    console.log(action.type, action.payload)
     switch (action.type) {
         case HeroActionTypes.Fetch:
+        
             return state;
         case HeroActionTypes.FetchSuccess:
             return action.payload;
